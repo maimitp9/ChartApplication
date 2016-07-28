@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sporter_id: 
+  competition_id: 
+  place: 1
+
+two:
+  sporter_id: 
+  competition_id: 
+  place: 1

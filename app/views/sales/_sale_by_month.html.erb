@@ -1,0 +1,29 @@
+ <div class="col-sm-12 col-md-6">
+ 	<%= chart_by_tenpo_code(params[:tenpo_code]) %>
+ </div>
+ <% profit_data = get_profite_data(params[:tenpo_code]).sort %>
+ <% sale_data = get_sale_data(params[:tenpo_code]).sort %>
+ <div class="col-sm-12 col-md-6">
+	 <table class="table table-condensed table-bordered">
+	 	<thead>
+	 		<tr>
+	 			<th>Tenpo Code</th>
+	 			<th>Month</th>
+	 			<th>Rieki</th>
+	 			<th>uriage</th>
+	 			<th>%</th>
+	 		</tr>
+	 	</thead>
+	 	<tbody>
+	 		<% sale_data.zip(profit_data).each do |s,p|%>
+	 		<tr>
+	 			<td><%= params[:tenpo_code] %></td>
+	 			<td><%= s[0] %></td>
+	 			<td><%= p[1].round(2) %></td>
+	 			<td><%= s[1].round(2) %></td>
+	 			<td><%= (p[1]/s[1]*100).round(2) %></td>
+	 		</tr>
+	 		<% end %>
+	 	</tbody>
+	 </table>
+ </div>

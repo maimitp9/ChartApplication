@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ki: 1
+  tenpo: 1
+  month: 1
+  rieki: 
+
+two:
+  ki: 1
+  tenpo: 1
+  month: 1
+  rieki: 

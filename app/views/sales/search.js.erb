@@ -1,0 +1,259 @@
+<% if params[:tenpo_code].present? %>
+	$("#generate_chart").html("<%= escape_javascript(render(partial: 'sale_by_month'))%>")
+<% end %>
+$('#container').highcharts({
+        chart: {
+            zoomType: 'xy',
+            style: {
+                fontFamily: 'arial'
+            }
+        },
+        title: {
+            text: 'Title'
+        },
+        xAxis: [{
+            categories: JSON.parse("[" + <%= @month %> + "]"),
+            title: {
+                text: 'Month',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Sale of Month(%)',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true
+
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'Profit of Month',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            //layout: 'vertical',
+            align: 'center',
+            //x: 80,
+            margin: 500,
+            layout: "horizontal",
+            verticalAlign: 'top',
+            //y: 90,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        credits: {
+      		enabled: false
+  		},		
+        series: [{
+            name: 'Store Sale',
+            type: 'column',
+            yAxis: 1,
+            data: JSON.parse("[" + <%= @month_profit %> + "]")
+        }, 
+        {
+            name: 'Monthly Profite(%)',
+            type: 'spline',
+            data: JSON.parse("[" + <%= @sale_per %> + "]")
+        }]
+    });
+
+$('#container1').highcharts({
+        chart: {
+            zoomType: 'xy',
+            style: {
+                fontFamily: 'arial'
+            }
+        },
+        title: {
+            text: 'Title'
+        },
+        xAxis: [{
+            categories: JSON.parse("[" + <%= @month %> + "]"),
+            title: {
+                text: 'Month',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Sale of Month(%)',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true
+
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'Profit of Month',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+
+        },{ // Tertiary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: ''
+            }
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            //layout: 'vertical',
+            align: 'center',
+            //x: 80,
+            margin: 500,
+            layout: "horizontal",
+            verticalAlign: 'top',
+            //y: 90,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        credits: {
+            enabled: false
+        },      
+        series: [{
+            name: 'Store Sale',
+            type: 'column',
+            yAxis: 1,
+            data: JSON.parse("[" + <%= @month_profit %> + "]")
+        }, 
+        {
+            name: 'Monthly Profite(%)',
+            type: 'spline',
+            data: JSON.parse("[" + <%= @sale_per %> + "]")
+        },{
+            name: 'Total Profit(%)',
+            type: 'spline',
+            data: JSON.parse("[" + <%= @year_profit %> + "]"),
+        }]
+    });
+
+/*$('#container1').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Average Monthly Weather Data for Tokyo'
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com'
+        },
+        xAxis: [{
+            categories: JSON.parse("[" + <%= @month %> + "]"),
+            title: {
+                text: 'Month',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            title: {
+                text: 'Sale of Month(%)',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'Profit of Month',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            }
+
+        }, { // Tertiary yAxis
+            gridLineWidth: 0,
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            //layout: 'vertical',
+            align: 'center',
+            //x: 80,
+            margin: 500,
+            layout: "horizontal",
+            verticalAlign: 'top',
+            //y: 90,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'Rainfall',
+            type: 'column',
+            yAxis: 1,
+            data: JSON.parse("[" + <%= @month_profit %> + "]")
+        }, {
+            name: 'Sea-Level Pressure',
+            type: 'spline',
+            yAxis: 2,
+            data: JSON.parse("[" + <%= @sale_per %> + "]"),
+            marker: {
+                enabled: false
+            },
+            dashStyle: 'shortdot',
+
+        }, {
+            name: 'Temperature',
+            type: 'spline',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+        }]
+    });*/

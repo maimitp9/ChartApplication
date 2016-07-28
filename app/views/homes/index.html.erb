@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6">
+		<h3 class="text-center">Visits By Day</h3>
+		<!-- line chart - Single Series -->
+		<!-- showing the number of vists by day. -->
+		<%= line_chart @visits.group_by_day(:visited_at).count, descrete: true %>	
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6">
+		<h3 class="text-center">Visits By Country Per Day</h3>
+		<!-- line chart - Multiple series -->
+		<!-- You see a line for each country with each point corresponding to the number of visits for that day. -->
+		<% @result = Visit.pluck('country').uniq.map{ |c| { name: c, data: @visits.where( country: c).group_by_day(:visited_at).count } } %>
+		<%= line_chart @result%>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6">
+		<h3 class="text-center">Total Visits by Country</h3>
+		<!-- pie chart will render with each slice representing the visits for that particular country -->
+		<%= pie_chart @visits.group(:country).count %>	
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6">
+		<h3 class="text-center">Total Load time per day</h3>
+		<!-- Area chart - with single series  -->
+		<%= area_chart @visits.group_by_day(:visited_at).maximum(:load_time) %>
+		<!-- area chart vith muliple series -->
+		<%#= area_chart Visit.pluck('country').uniq.map{ |c| {name: c, data: @visits.where(country: c).group_by_day(:visited_at).maximum(:load_time)} }, descrete: true  %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6">
+		<h3 class="text-center">Total Visits Per Country</h3>
+		<%= column_chart @visits.group(:country).count %>	
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6">
+		<h3 class="text-center">Total Visits Per Country</h3>
+		<!-- Area chart - with single series  -->
+		<%= bar_chart @visits.group(:country).count %>
+	</div>
+</div>

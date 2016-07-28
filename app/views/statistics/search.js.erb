@@ -1,0 +1,11 @@
+<% if params[:chart_id].present? %>
+	<% if params[:chart_id] == '1' %>
+		$("#set_chart").html("<%= escape_javascript(render(partial: 'sporters_by_age'))%>")
+	<% elsif params[:chart_id] == '2' %>
+		$("#set_chart").html("<%= escape_javascript(render(partial: 'sporters_by_country'))%>")
+	<% elsif params[:chart_id] == '3' %>
+		$("#set_chart").html("<%= escape_javascript(render(partial: 'results_by_country'))%>")
+	<% elsif params[:chart_id] == '4' %>
+		$("#set_chart").html("<%= escape_javascript(render(partial: 'competition_by_year'))%>")
+	<% end %>
+<% end %>
